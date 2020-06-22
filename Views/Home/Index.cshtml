@@ -1,0 +1,52 @@
+﻿@using QuizApplication.ViewModels
+@model QuestionAnswer
+
+@if (Model.score != null)
+{
+    <div class="alert alert-success">You scored @Model.score% on this test.</div>
+}
+else
+{
+    <div class="text-center">
+        <h3>Question: @Model.questionText</h3>
+        @foreach (Answer option in Model.answers)
+        {
+            <label>@option.answerText</label>
+            <input name="answer" type="radio" question="@Model.id" value="@option.id" />
+            <br>
+        }
+        <button class="btn btn-info" id="submit_answer">Submit Answer</button>
+
+    </div>
+}
+
+
+@section Scripts{
+    <script type="text/javascript">
+   
+    $(document).ready(function () {
+        $('#submit_answer').click(function () {
+            var model = {};
+            model.optionId = $("input[name='answer']:checked").val();
+            model.questionId = $("input[name='answer']:checked").attr("question");
+            $('#submit_answer').attr("disabled", true);
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("ProcessAnswer")',
+                data: JSON.stringify(model),
+                dataType: "text",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    alert(data);
+                    location.reload();
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                }
+            });
+        });
+
+    });
+    </script>
+}
