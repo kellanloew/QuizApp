@@ -1,11 +1,11 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using QuizApplication.Models;
-using QuizApplication.ViewModels;
+using QuizApplication.Web.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using QuizApplication.Web.Models;
 
-namespace QuizApplication.ViewModels.Tests
+namespace QuizApplication.Web.ViewModels.Tests
 {
     [TestClass()]
     public class QuestionAnswerTests

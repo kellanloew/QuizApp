@@ -1,10 +1,10 @@
-﻿using QuizApplication.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using QuizApplication.Web.Models;
 
-namespace QuizApplication.ViewModels
+namespace QuizApplication.Web.ViewModels
 {
     public class QuestionAnswer
     {

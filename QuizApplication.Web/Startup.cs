@@ -9,9 +9,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
-using QuizApplication.Models;
+using QuizApplication.Web.Models;
 
-namespace QuizApplication
+namespace QuizApplication.Web
 {
     public class Startup
     {

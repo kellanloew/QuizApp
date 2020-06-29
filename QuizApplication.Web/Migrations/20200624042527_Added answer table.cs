@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace QuizApplication.Migrations
+namespace QuizApplication.Web.Migrations
 {
     public partial class Addedanswertable : Migration
     {

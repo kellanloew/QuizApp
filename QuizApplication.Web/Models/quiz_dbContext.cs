@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace QuizApplication.Models
+namespace QuizApplication.Web.Models
 {
     public partial class quiz_dbContext : DbContext
     {

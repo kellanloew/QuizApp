@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using QuizApplication.Models;
+using QuizApplication.Web.Models;
 
-namespace QuizApplication.Migrations
+namespace QuizApplication.Web.Migrations
 {
     [DbContext(typeof(quiz_dbContext))]
     partial class QuizApplicationContextModelSnapshot : ModelSnapshot

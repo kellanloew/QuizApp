@@ -7,10 +7,10 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using QuizApplication.Models;
-using QuizApplication.ViewModels;
+using QuizApplication.Web.Models;
+using QuizApplication.Web.ViewModels;
 
-namespace QuizApplication.Controllers
+namespace QuizApplication.Web.Controllers
 {
     public class HomeController : Controller
     {

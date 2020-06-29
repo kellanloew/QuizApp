@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using QuizApplication.Models;
+using QuizApplication.Web.Models;
 
-namespace QuizApplication.Migrations
+namespace QuizApplication.Web.Migrations
 {
     [DbContext(typeof(quiz_dbContext))]
     [Migration("20200622034112_tryinh")]

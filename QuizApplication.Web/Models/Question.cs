@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace QuizApplication.Models
+namespace QuizApplication.Web.Models
 {
     public partial class Question
     {
