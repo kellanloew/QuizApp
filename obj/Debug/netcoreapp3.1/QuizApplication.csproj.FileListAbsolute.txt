@@ -19,7 +19,6 @@ C:\Users\CKC\Documents\Github\QuizApplication\obj\Debug\netcoreapp3.1\QuizApplic
 C:\Users\CKC\Documents\Github\QuizApplication\obj\Debug\netcoreapp3.1\QuizApplication.TagHelpers.output.cache
 C:\Users\CKC\Documents\Github\QuizApplication\obj\Debug\netcoreapp3.1\QuizApplication.RazorCoreGenerate.cache
 C:\Users\CKC\Documents\Github\QuizApplication\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
-C:\Users\CKC\Documents\Github\QuizApplication\obj\Debug\netcoreapp3.1\Razor\Views\Home\Privacy.cshtml.g.cs
 C:\Users\CKC\Documents\Github\QuizApplication\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Error.cshtml.g.cs
 C:\Users\CKC\Documents\Github\QuizApplication\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout.cshtml.g.cs
 C:\Users\CKC\Documents\Github\QuizApplication\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
@@ -166,8 +165,4 @@ C:\Users\CKC\Documents\Github\QuizApplication\bin\Debug\netcoreapp3.1\zh-Hans\Mi
 C:\Users\CKC\Documents\Github\QuizApplication\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\CKC\Documents\Github\QuizApplication\obj\Debug\netcoreapp3.1\QuizApplication.csproj.CoreCompileInputs.cache
 C:\Users\CKC\Documents\Github\QuizApplication\obj\Debug\netcoreapp3.1\QuizApplication.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\CKC\Documents\Github\QuizApplication\obj\Debug\netcoreapp3.1\Razor\Views\QuestionItems\Create.cshtml.g.cs
-C:\Users\CKC\Documents\Github\QuizApplication\obj\Debug\netcoreapp3.1\Razor\Views\QuestionItems\Delete.cshtml.g.cs
-C:\Users\CKC\Documents\Github\QuizApplication\obj\Debug\netcoreapp3.1\Razor\Views\QuestionItems\Details.cshtml.g.cs
-C:\Users\CKC\Documents\Github\QuizApplication\obj\Debug\netcoreapp3.1\Razor\Views\QuestionItems\Edit.cshtml.g.cs
-C:\Users\CKC\Documents\Github\QuizApplication\obj\Debug\netcoreapp3.1\Razor\Views\QuestionItems\Index.cshtml.g.cs
+C:\Users\CKC\Documents\Github\QuizApplication\obj\Debug\netcoreapp3.1\QuizApplication.csprojAssemblyReference.cache

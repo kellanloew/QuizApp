@@ -5,10 +5,9 @@ using System.Threading.Tasks;
 
 namespace QuizApplication.ViewModels
 {
-    public class AnswerResult
+    public class AnswerDisplay
     {
-        public string optionId { get; set; }
-        public string questionId { get; set; }
         public string answerText { get; set; }
+        public int id { get; set; }
     }
 }

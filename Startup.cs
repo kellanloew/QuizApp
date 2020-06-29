@@ -28,11 +28,17 @@ namespace QuizApplication
             //services.AddDbContext<QuizApplicationContext>(opt =>
             //   opt.UseInMemoryDatabase("QuizApplicationList"));
             //services.AddScoped<>();
-            services.AddEntityFrameworkSqlServer().AddDbContext<QuizApplicationContext>(
-                options => options.UseSqlServer(
-                    @"Server=DESKTOP-HNPMQTA\ckc;Database=test;User Id=sa;password=pass",
-                    providerOptions => providerOptions.EnableRetryOnFailure()
-                )
+            //services.AddEntityFrameworkSqlServer().AddDbContext<QuizApplicationContext>(
+            //services.AddDbContext<QuizApplicationContext>(
+            //    options => options.UseSqlServer(
+            //        //@"Server=DESKTOP-HNPMQTA\CKC;Database=test_db;User Id=test_user;",
+            //        @"Server = localhost\MSSQLSERVER01; Database = quiz_db; Trusted_Connection = True;",
+            //        providerOptions => providerOptions.EnableRetryOnFailure()
+            //    )
+            //);
+
+            services.AddDbContext<quiz_dbContext>(options =>
+                options.UseSqlServer(@"Server = localhost\MSSQLSERVER01; Database = quiz_db; Trusted_Connection = True;")
             );
 
             services.AddControllersWithViews();
@@ -62,7 +68,7 @@ namespace QuizApplication
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Details}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
 
         }
