@@ -41,7 +41,6 @@ namespace QuizApplication.Controllers
 
         public QuestionAnswer showNextQuestionOrScore()
         {
-            
             QuestionAnswer currentQuestion = new QuestionAnswer();
             using (_context)
             {
