@@ -15,7 +15,7 @@ GO
 
 CREATE TABLE [dbo].[question](
 	[id] [int] IDENTITY(1,1) NOT NULL,
-	[QuestionText] [nchar](1000) NOT NULL,
+	[QuestionText] nvarchar(1000) NOT NULL,
 	[IsComplete] [bit] NOT NULL,
  CONSTRAINT [PK_question] PRIMARY KEY CLUSTERED 
 (

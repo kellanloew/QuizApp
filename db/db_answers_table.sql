@@ -19,7 +19,7 @@ GO
 CREATE TABLE [dbo].[answer](
 	[id] [int] IDENTITY(1,1) NOT NULL,
 	[QuestionId] [int] NOT NULL,
-	[AnswerText] [nchar](1000) NOT NULL,
+	[AnswerText] nvarchar(1000) NOT NULL,
 	[IsCorrect] [bit] NOT NULL,
 	[WasSelected] [bit] NULL,
  CONSTRAINT [PK_answer] PRIMARY KEY CLUSTERED 
