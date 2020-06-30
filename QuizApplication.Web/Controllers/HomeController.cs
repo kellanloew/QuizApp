@@ -34,6 +34,7 @@ namespace QuizApplication.Web.Controllers
             }
             catch(Exception e)
             {
+                System.Diagnostics.Debug.WriteLine(e.ToString());
                 question.isError = true;
             }
             return View(question);
@@ -107,8 +108,6 @@ namespace QuizApplication.Web.Controllers
                 {
                     var dbAnswer = new Models.Answer(); //New instance of Answer class, representing one row in the DB's Answer table
 
-                    answer.questionId = "0";
-
                     //make sure the question id given is actually an int value potentially in the DB
                     if (Int32.Parse(answer.questionId) < 1)
                     {
@@ -135,6 +134,7 @@ namespace QuizApplication.Web.Controllers
             }
             catch (Exception e)
             {
+                System.Diagnostics.Debug.WriteLine(e.ToString());
                 Response.StatusCode = 400;
                 returnText = e.ToString();
             }
