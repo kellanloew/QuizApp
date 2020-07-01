@@ -17,11 +17,28 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.101
+
     - name: Install dependencies
       run: dotnet restore
+      
     - name: Build
       run: dotnet build --configuration Release --no-restore
+      
     #- name: Test
     #  run: dotnet test --no-restore --verbosity normal
-    - name: Create Zip File
-      uses: montudor/action-zip@v0.1.0
+      
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: published_webapp
+        path: bin\Release\Publish
+      
+    - name: Zip Release
+      uses: TheDoctor0/zip-release@v0.3.0
+      with:
+        # Filename for archive
+        filename: quizapp.zip
+        # Base path for archive files
+        path: .
+        # Working directory before zipping
+        directory: .
