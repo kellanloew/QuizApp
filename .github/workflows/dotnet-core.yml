@@ -28,7 +28,7 @@ jobs:
     #  run: dotnet test --no-restore --verbosity normal
       
     - name: Publish
-      run: dotnet publish --configuration Release --self-contained --runtime netcoreapp3.1
+      run: dotnet publish --configuration Release --self-contained --runtime win10-x64
       
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v2
