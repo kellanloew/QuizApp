@@ -13,6 +13,7 @@ namespace QuizApplication.Web.ViewModels
         public int id { get; set; }
         public string score { get; set; }
         public bool isError { get; set; }
+        public int numberWrong { get; set; }
 
         public void calculatePercentage(List<Models.Answer> dbAnswers, int numQuestions)
         {
@@ -22,6 +23,23 @@ namespace QuizApplication.Web.ViewModels
                 if (a.IsCorrect) correct += 1;
             }
             score = ((correct * 100) / numQuestions).ToString();
+            numberWrong = numQuestions - correct;
         }
+
+
+        internal void shuffleAnswers()
+        {
+            Random rng = new Random();
+            int n = answers.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = rng.Next(n + 1);
+                var value = answers[k];
+                answers[k] = answers[n];
+                answers[n] = value;
+            }
+        }
+
     }
 }

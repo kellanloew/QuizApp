@@ -3,7 +3,9 @@
 
 @if (Model.score != null)
 {
-    <div class="alert alert-success">You scored @Model.score% on this test.</div>
+    <div class="alert alert-success">
+        You scored @Model.score% on this test@( Model.score == "100" ? "!" : ", with " + Model.numberWrong + " wrong." )
+    </div>
 }
 else if (Model.isError == true)
 {
@@ -16,7 +18,7 @@ else
         <div class="alert alert-warning submission_issue" id="submission_warning">Please select an answer.</div>
         <div class="alert alert-danger submission_issue" id="submission_error">Some error occured saving your answer.</div>
         <!--Question text-->
-        <h3>Question: @Model.questionText</h3>
+        <h3 class="question_heading">Question: @Model.questionText</h3>
         <div class="row">
             <!--Loop through each question option-->
             @foreach (AnswerDisplay option in Model.answers)
@@ -33,7 +35,7 @@ else
     </div>
 
 }
-<div class="text-center">
+<div class="text-center" style="margin-top: 10px;">
     <button class="btn btn-warning" id="restart">Restart Quiz</button>
 </div>
 
@@ -108,8 +110,17 @@ else
 }
 
 <style>
+    /*CUSTOM CSS*/
     .input_div {
         padding-left: 0px !important;
+        background-color: aliceblue;
+    }
+
+    .question_heading {
+        border: solid;
+        border-color: darkblue;
+        border-radius: 5px;
+        border-width: 1px;
     }
 
     .submission_issue {

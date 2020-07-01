@@ -66,14 +66,14 @@ namespace QuizApplication.Web.ViewModels.Tests
             Assert.AreEqual("0", questionAnswer.score);
         }
 
-        //[TestMethod()]
-        //public void calculatePercentageTest_NoQuestion()
-        //{
-        //    QuestionAnswer questionAnswer = new QuestionAnswer();
-        //    var answers = new List<Answer>();
+        [TestMethod()]
+        public void calculatePercentageTest_NoQuestion()
+        {
+            QuestionAnswer questionAnswer = new QuestionAnswer();
+            var answers = new List<Answer>();
 
-        //    questionAnswer.calculatePercentage(answers, 1);
-        //    Assert.AreEqual("0", questionAnswer.score);
-        //}
+            questionAnswer.calculatePercentage(answers, 0);
+            Assert.AreEqual("0", questionAnswer.score);
+        }
     }
 }

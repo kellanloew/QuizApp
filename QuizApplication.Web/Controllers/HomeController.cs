@@ -2,11 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
 using QuizApplication.Web.Models;
 using QuizApplication.Web.ViewModels;
 
@@ -40,13 +36,58 @@ namespace QuizApplication.Web.Controllers
             return View(question);
         }
 
+        [HttpPost]
+        //this is called when user submits a POST request of the answer they selected
+        public string ProcessAnswer([FromBody]AnswerResult answer)
+        {
+            string returnText = "";
+            try
+            {
+                using (_context)
+                {
+                    Answer dbAnswer = new Models.Answer(); //New instance of Answer class, representing one row in the DB's Answer table
+
+                    //make sure the question id given is actually an int value potentially in the DB
+                    if (Int32.Parse(answer.optionId) < 1)
+                    {
+                        throw new System.ArgumentException("Parameter must be greater than 0");
+                    }
+
+                    //update answer table, marking which question was answered
+                    dbAnswer = _context.Answers.FirstOrDefault(a => a.Id == Int32.Parse(answer.optionId));
+                    dbAnswer.WasSelected = true;
+                    _context.Answers.Update(dbAnswer);
+
+                    if (Int32.Parse(answer.questionId) < 1)
+                    {
+                        throw new System.ArgumentException("Parameter must be greater than 0");
+                    }
+
+                    //update question table, marking this question as answered
+                    Question dbQuestion = new Models.Question();
+                    dbQuestion = _context.Questions.FirstOrDefault(q => q.Id == Int32.Parse(answer.questionId));
+                    dbQuestion.IsComplete = true;
+                    _context.Questions.Update(dbQuestion);
+                    _context.SaveChanges(); //Applies changes to DB
+                }
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e.ToString());
+                Response.StatusCode = 400;
+                returnText = e.ToString();
+            }
+            return returnText;
+        }
+
+        //intializes the next question object, whether there is a question left or just the score
         public QuestionAnswer showNextQuestionOrScore()
         {
             QuestionAnswer currentQuestion = new QuestionAnswer();
             using (_context)
             {
                 //get first question that has not been answered
-                var Question = _context.Questions.FirstOrDefault(q => q.IsComplete == false);
+                Question Question = _context.Questions.FirstOrDefault(q => q.IsComplete == false);
                 //if the question exists, then fetch the corresponding answers
                 if (Question != null)
                 {
@@ -55,6 +96,7 @@ namespace QuizApplication.Web.Controllers
 
                     //get answers associated with question
                     currentQuestion.answers = setAnswerOptionsForQuestion(currentQuestion.id);
+                    currentQuestion.shuffleAnswers();
                 }
                 //if there is no answered question, the quiz is finished, so calculate the user score
                 else
@@ -62,8 +104,8 @@ namespace QuizApplication.Web.Controllers
                     //get all user selected answers options
 
                     var dbAnswers = (from c in _context.Answers select c).Where(p => p.WasSelected == true).ToList();
-                    var questionCount = _context.Questions.Count(); //get number of questions answered
-                   
+                    int questionCount = _context.Questions.Count(); //get number of questions answered
+
                     //calculate the percentage
                     currentQuestion.calculatePercentage(dbAnswers, questionCount);
                 }
@@ -71,11 +113,12 @@ namespace QuizApplication.Web.Controllers
             return currentQuestion;
         }
 
+        //gets the answer options for a given question id
         private List<AnswerDisplay> setAnswerOptionsForQuestion(int questionId)
         {
-            //initialize list of answer options with 
+            //initialize list of answer options
             var answers = new List<Models.Answer>();
-            //get the answer options for this question
+            //get the answer options for this question from the DB
             answers = (from c in _context.Answers select c).Where(p => p.QuestionId == questionId).ToList();
             var answersViews = new List<AnswerDisplay>();
 
@@ -93,54 +136,9 @@ namespace QuizApplication.Web.Controllers
                 currentAnswer.id = answer.Id;
                 answersViews.Add(currentAnswer);
             }
-            
+
             return answersViews;
         }
-
-        [HttpPost]
-        //this is called when user submits a POST request of the answer they selected
-        public string ProcessAnswer([FromBody]AnswerResult answer)
-        {
-            string returnText = "";
-            try
-            {
-                using (_context)
-                {
-                    var dbAnswer = new Models.Answer(); //New instance of Answer class, representing one row in the DB's Answer table
-
-                    //make sure the question id given is actually an int value potentially in the DB
-                    if (Int32.Parse(answer.questionId) < 1)
-                    {
-                        throw new System.ArgumentException("Parameter must be greater than 0");
-                    }
-
-                    //update answer table, marking which question was answered
-                    dbAnswer = _context.Answers.FirstOrDefault(a => a.Id == Int32.Parse(answer.optionId));
-                    dbAnswer.WasSelected = true;
-                    _context.Answers.Update(dbAnswer);
-
-                    if (Int32.Parse(answer.questionId) < 1)
-                    {
-                        throw new System.ArgumentException("Parameter must be greater than 0");
-                    }
-
-                    //update question table, marking this question as answered
-                    var dbQuestion = new Models.Question();
-                    dbQuestion = _context.Questions.FirstOrDefault(q => q.Id == Int32.Parse(answer.questionId));
-                    dbQuestion.IsComplete = true;
-                    _context.Questions.Update(dbQuestion);
-                    _context.SaveChanges(); //Applies changes to DB
-                }
-            }
-            catch (Exception e)
-            {
-                System.Diagnostics.Debug.WriteLine(e.ToString());
-                Response.StatusCode = 400;
-                returnText = e.ToString();
-            }
-            return returnText;
-        }
-
         public bool RestartQuiz()
         {
             using (_context)
@@ -163,6 +161,7 @@ namespace QuizApplication.Web.Controllers
             return true;
         }
 
+        //ASP.NET's default error catcher for unhandled exceptions
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

@@ -25,21 +25,8 @@ namespace QuizApplication.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddDbContext<QuizApplicationContext>(opt =>
-            //   opt.UseInMemoryDatabase("QuizApplicationList"));
-            //services.AddScoped<>();
-            //services.AddEntityFrameworkSqlServer().AddDbContext<QuizApplicationContext>(
-            //services.AddDbContext<QuizApplicationContext>(
-            //    options => options.UseSqlServer(
-            //        //@"Server=DESKTOP-HNPMQTA\CKC;Database=test_db;User Id=test_user;",
-            //        @"Server = localhost\MSSQLSERVER01; Database = quiz_db; Trusted_Connection = True;",
-            //        providerOptions => providerOptions.EnableRetryOnFailure()
-            //    )
-            //);
 
-            services.AddDbContext<quiz_dbContext>(options =>
-                options.UseSqlServer(@"Server = localhost\MSSQLSERVER01; Database = quiz_db; Trusted_Connection = True;")
-            );
+            services.AddDbContext<quiz_dbContext>();
 
             services.AddControllersWithViews();
         }
