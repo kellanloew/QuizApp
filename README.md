@@ -19,7 +19,8 @@ The project is currently configured to use SQL Server, which means it cannot run
 1. Create credentials for a new SQL user for your database, or confirm your existing ones.
 1. Open QuizApplication.Web\Models\quiz_dbContext.cs and go to line 25. Using the credentials above, replace the dummy values in the connection string with those of your SQL server instance.
 1. In a command line of your choice, cd to the root directory of the QuizApplication repo.
-1. Run setup.ps1, giving it as parameters first your database's server, then user, and finally password
+1. Run database.ps1, giving it as parameters first your database's server, then user, and finally password. If you have Visual Studio and IIS installed, and wish to run the app from there, skip steps 9 & 10
+1. Run build.ps1
 1. Run run.ps1
 1. Open a browser and navigate to http://localhost:5000. Your app will be running!
 
