@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
@@ -26,9 +25,9 @@ namespace QuizApplication.Web.Controllers
             QuestionAnswer question = new QuestionAnswer();
             try
             {
-                question = showNextQuestionOrScore();
+                question.ShowNextQuestionOrScore(_context);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 System.Diagnostics.Debug.WriteLine(e.ToString());
                 question.isError = true;
@@ -80,65 +79,8 @@ namespace QuizApplication.Web.Controllers
             return returnText;
         }
 
-        //intializes the next question object, whether there is a question left or just the score
-        public QuestionAnswer showNextQuestionOrScore()
-        {
-            QuestionAnswer currentQuestion = new QuestionAnswer();
-            using (_context)
-            {
-                //get first question that has not been answered
-                Question Question = _context.Questions.FirstOrDefault(q => q.IsComplete == false);
-                //if the question exists, then fetch the corresponding answers
-                if (Question != null)
-                {
-                    currentQuestion.questionText = Question.QuestionText;
-                    currentQuestion.id = Question.Id;
-
-                    //get answers associated with question
-                    currentQuestion.answers = setAnswerOptionsForQuestion(currentQuestion.id);
-                    currentQuestion.shuffleAnswers();
-                }
-                //if there is no answered question, the quiz is finished, so calculate the user score
-                else
-                {
-                    //get all user selected answers options
-
-                    var dbAnswers = (from c in _context.Answers select c).Where(p => p.WasSelected == true).ToList();
-                    int questionCount = _context.Questions.Count(); //get number of questions answered
-
-                    //calculate the percentage
-                    currentQuestion.calculatePercentage(dbAnswers, questionCount);
-                }
-            }
-            return currentQuestion;
-        }
-
-        //gets the answer options for a given question id
-        private List<AnswerDisplay> setAnswerOptionsForQuestion(int questionId)
-        {
-            //initialize list of answer options
-            var answers = new List<Models.Answer>();
-            //get the answer options for this question from the DB
-            answers = (from c in _context.Answers select c).Where(p => p.QuestionId == questionId).ToList();
-            var answersViews = new List<AnswerDisplay>();
-
-            //throw an exception if no answers were found
-            if (answers.Count == 0)
-            {
-                throw new Exception("No answer options could be found for question id " + questionId);
-            }
-
-            foreach (Models.Answer answer in answers)
-            {
-                //define the properties of each viewmodel
-                AnswerDisplay currentAnswer = new AnswerDisplay();
-                currentAnswer.answerText = answer.AnswerText;
-                currentAnswer.id = answer.Id;
-                answersViews.Add(currentAnswer);
-            }
-
-            return answersViews;
-        }
+        [HttpPost]
+        //called when user wants to delete all questions they've answered and start the quiz over
         public bool RestartQuiz()
         {
             using (_context)
@@ -146,7 +88,6 @@ namespace QuizApplication.Web.Controllers
                 var dbAnswer = new Models.Answer(); //New instance of Answer class, representing one row in the DB's Answer table
 
                 //update answer table, marking which question was answered
-
                 var answers = _context.Answers.ToList();
                 answers.ForEach(a => a.WasSelected = null);
 
@@ -157,7 +98,6 @@ namespace QuizApplication.Web.Controllers
 
                 _context.SaveChanges(); //Applies changes to DB
             }
-            
             return true;
         }
 

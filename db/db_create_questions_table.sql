@@ -1,6 +1,3 @@
-USE [quiz_db]
-GO
-
 /****** Object:  Table [dbo].[question]    Script Date: 6/29/2020 6:43:12 PM ******/
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[question]') AND type in (N'U'))
 DROP TABLE [dbo].[question]

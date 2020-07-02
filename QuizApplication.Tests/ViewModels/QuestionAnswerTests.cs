@@ -7,72 +7,79 @@ using QuizApplication.Web.Models;
 
 namespace QuizApplication.Web.ViewModels.Tests
 {
-    [TestClass()]
+    [TestClass]
     public class QuestionAnswerTests
     {
-        [TestMethod()]
-        public void calculatePercentageTest_OneTrueAnswer()
+        [TestMethod]
+        public void CalculatePercentageTest_OneTrueAnswer()
         {
             QuestionAnswer questionAnswer = new QuestionAnswer();
             var answers = new List<Answer>();
-            Answer dbAnswer = new Answer();
-            dbAnswer.IsCorrect = true;
-            dbAnswer.WasSelected = true;
+            Answer dbAnswer = new Answer()
+            {
+                IsCorrect = true,
+                WasSelected = true
+            };
             answers.Add(dbAnswer);
-            questionAnswer.calculatePercentage(answers, 1);
+            questionAnswer.CalculatePercentage(answers, 1);
             Assert.AreEqual("100", questionAnswer.score);
         }
 
-        [TestMethod()]
-        public void calculatePercentageTest_OneFalseAnswer()
+        [TestMethod]
+        public void CalculatePercentageTest_OneFalseAnswer()
         {
             QuestionAnswer questionAnswer = new QuestionAnswer();
             var answers = new List<Answer>();
-            Answer dbAnswer = new Answer();
-            dbAnswer.IsCorrect = false;
-            dbAnswer.WasSelected = true;
+            Answer dbAnswer = new Answer()
+            {
+                IsCorrect = false,
+                WasSelected = true
+            };
             answers.Add(dbAnswer);
-            questionAnswer.calculatePercentage(answers, 1);
+            questionAnswer.CalculatePercentage(answers, 1);
             Assert.AreEqual("0", questionAnswer.score);
         }
 
-        [TestMethod()]
-        public void calculatePercentageTest_SeveralWrongAndRight()
+        [TestMethod]
+        public void CalculatePercentageTest_SeveralWrongAndRight()
         {
             QuestionAnswer questionAnswer = new QuestionAnswer();
             var answers = new List<Answer>();
             int answerCount = 30;
             for(int i = 0; i < answerCount; i++)
             {
-                Answer dbAnswer = new Answer();
-                dbAnswer.IsCorrect = false;
-                dbAnswer.WasSelected = true;
-                if(i == 29)
+                Answer dbAnswer = new Answer()
+                {
+                    IsCorrect = false,
+                    WasSelected = true
+                };
+                if (i == 29)
                 {
                     dbAnswer.IsCorrect = true;
                 }
                 answers.Add(dbAnswer);
             }
-            questionAnswer.calculatePercentage(answers, answerCount);
+            questionAnswer.CalculatePercentage(answers, answerCount);
             Assert.AreEqual("3", questionAnswer.score);
         }
-        [TestMethod()]
-        public void calculatePercentageTest_NoAnswer()
+
+        [TestMethod]
+        public void CalculatePercentageTest_NoAnswer()
         {
             QuestionAnswer questionAnswer = new QuestionAnswer();
             var answers = new List<Answer>();
 
-            questionAnswer.calculatePercentage(answers, 1);
+            questionAnswer.CalculatePercentage(answers, 1);
             Assert.AreEqual("0", questionAnswer.score);
         }
 
-        [TestMethod()]
-        public void calculatePercentageTest_NoQuestion()
+        [TestMethod]
+        public void CalculatePercentageTest_NoQuestion()
         {
             QuestionAnswer questionAnswer = new QuestionAnswer();
             var answers = new List<Answer>();
 
-            questionAnswer.calculatePercentage(answers, 0);
+            questionAnswer.CalculatePercentage(answers, 0);
             Assert.AreEqual("0", questionAnswer.score);
         }
     }
