@@ -10,12 +10,4 @@ write "Creating answers table..."
 sqlcmd -S $serveraddress -U $user -P $pass -i db/db_create_answers_table.sql -d QuizAppDb    
 write "Populating both tables with data..."     
 sqlcmd -S $serveraddress -U $user -P $pass -i db/dbo.question.Table.Data.sql -d QuizAppDb       
-sqlcmd -S $serveraddress -U $user -P $pass -i db/dbo.answer.Table.Data.sql -d QuizAppDb   
- 
-write "Now about to buid the .NET app..."   
-
-
-dotnet clean
-dotnet build
-dotnet test
-dotnet publish
+sqlcmd -S $serveraddress -U $user -P $pass -i db/dbo.answer.Table.Data.sql -d QuizAppDb  
